@@ -12,12 +12,12 @@ public class Mux16Test {
     public void compute() {
         Mux16 mux16 = new Mux16();
 
-        boolean[] a = BMath.stringToBooleanArray("11111111111111111");
+        boolean[] a = BMath.stringToBooleanArray("1111111111111111");
         boolean[] b = BMath.stringToBooleanArray("0000000000000000");
-        boolean[] sel = BMath.stringToBooleanArray("11111111100000000");
+        boolean[] sel = BMath.stringToBooleanArray("1111111110000000");
 
         mux16.compute(a,b,sel);
-        boolean[] expected = BMath.stringToBooleanArray("00000000111111111");
+        boolean[] expected = BMath.stringToBooleanArray("0000000001111111");
         assertArrayEquals(expected,mux16.out);
 
     }
