@@ -1,4 +1,6 @@
 package Project3;
+import org.junit.Test;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,6 +11,8 @@ public class Game extends JPanel {
     private boolean turn1 = true;
     private String[] board = new String[9];
     private String name;
+    private int counter = 0;
+    private Boolean win = false;
 
     public Game() {
         this.setLayout(new GridLayout(3, 3));
@@ -28,6 +32,18 @@ public class Game extends JPanel {
     }
 
     private void check(TicTacToeButton button) {
+        //Wraps around all vertical buttons
+        int first = button.position;
+        int second = button.position+3;
+        if (second>=9){
+            second-=9;
+        }
+        int third = button.position+6;
+        if (third>=9){
+            third-=9;
+        }
+
+
         //Checks if a corner was hit to add the diagonal check
         if (button.position == 0 || button.position == 2 || button.position == 4 || button.position == 6 || button.position == 8){
             //Left and Right diagonal checks
@@ -43,34 +59,47 @@ public class Game extends JPanel {
         }
         //Vertical Checks
         for (int i = 0; i < 3; i++) {
-            if (buttons[i].team == buttons[i+3].team && buttons[i].team == buttons[i+6].team){
-                if (buttons[i].team != null && buttons[i+1].team != null && buttons[i+2].team != null){
+            if (buttons[first].team == buttons[second].team && buttons[first].team == buttons[third].team){
+                if (buttons[first].team != null && buttons[second].team != null && buttons[third].team != null){
                     win();
                 }
             }
         }
         //Horizontal Checks
-        for (int i = 0; i < 3; i+=3) {
+        for (int i = 0; i < 9; i+=3) {
             if (buttons[i].team == buttons[i+1].team && buttons[i].team == buttons[i+2].team){
                 if (buttons[i].team != null && buttons[i+1].team != null && buttons[i+2].team != null){
                     win();
                 }
             }
         }
+        tie();
     }
     private void win(){
-        for (int i = 0; i < 100; i++) {
-            System.out.println("*.*.*");
-            System.out.println("PLAYER "+name+" WINS");
-            System.out.println("*.*.*");
+        JOptionPane.showMessageDialog(null,"Player "+name+" Wins");
+        win = true;
+        reset();
+
+    }
+    private void tie(){
+        if (counter >= 9 && win == false) {
+            JOptionPane.showMessageDialog(null, "Tie Game");
+            reset();
         }
-        removeAll();
-        repaint();
+    }
+    private void reset(){
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].team = null;
+            buttons[i].setText(null);
+            buttons[i].setEnabled(true);
+        }
     }
     private class buttonListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             TicTacToeButton buttonClicked = (TicTacToeButton) e.getSource();
             buttonClicked.setEnabled(false);
+            buttonClicked.setFont(new Font("TimesRoman", Font.BOLD,28));
+            counter+=1;
             if (turn1) {
                 buttonClicked.setText("X");
                 buttonClicked.team = TicTacToeButton.teams.X;
