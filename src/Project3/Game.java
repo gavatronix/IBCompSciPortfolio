@@ -1,5 +1,4 @@
 package Project3;
-import org.junit.Test;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,6 @@ public class Game extends JPanel {
     private String name;
     private int counter = 0;
     private Boolean win = false;
-    private Boolean again = false;
 
     public Game() {
         this.setLayout(new GridLayout(3, 3));
@@ -77,19 +75,17 @@ public class Game extends JPanel {
         tie();
     }
     private void win(){
-        JOptionPane.showMessageDialog(null,"Player "+name+" Wins");
-        int thing = JOptionPane.showConfirmDialog(null,
-                "Play Again?", "Please select",
-                JOptionPane.YES_NO_OPTION);
-        if (thing == 0){reset();}
+        JOptionPane.showMessageDialog(null,name + " Wins");
+        int again = JOptionPane.showConfirmDialog(null, "Play Again?", "Please select", JOptionPane.YES_NO_OPTION);
+        if (again == 0){turn1=true; counter = 0; reset();}
         else {System.exit(1);}
-        win = true;
-
     }
     private void tie(){
         if (counter >= 9 && win == false) {
             JOptionPane.showMessageDialog(null, "Tie Game");
-            reset();
+            int again = JOptionPane.showConfirmDialog(null, "Play Again?", "Please select", JOptionPane.YES_NO_OPTION);
+            if (again == 0){turn1=true; counter = 0; reset();}
+            else {System.exit(1);}
         }
     }
     private void reset(){
@@ -110,13 +106,13 @@ public class Game extends JPanel {
                 buttonClicked.team = TicTacToeButton.teams.X;
                 check(buttonClicked);
                 turn1 = false;
-                name = "2";
+                name = "O";
             } else {
                 buttonClicked.setText("O");
                 buttonClicked.team = TicTacToeButton.teams.O;
                 check(buttonClicked);
                 turn1 = true;
-                name = "1";
+                name = "X";
             }
 
         }
