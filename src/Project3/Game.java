@@ -13,6 +13,7 @@ public class Game extends JPanel {
     private String name;
     private int counter = 0;
     private Boolean win = false;
+    private Boolean again = false;
 
     public Game() {
         this.setLayout(new GridLayout(3, 3));
@@ -77,8 +78,12 @@ public class Game extends JPanel {
     }
     private void win(){
         JOptionPane.showMessageDialog(null,"Player "+name+" Wins");
+        int thing = JOptionPane.showConfirmDialog(null,
+                "Play Again?", "Please select",
+                JOptionPane.YES_NO_OPTION);
+        if (thing == 0){reset();}
+        else {System.exit(1);}
         win = true;
-        reset();
 
     }
     private void tie(){
