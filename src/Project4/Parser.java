@@ -1,17 +1,17 @@
 package Project4;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 import java.util.Scanner;
 
 public class Parser {
-    private int sum;
-    private int number = 0;
     public Scanner scanner;
+    private int i = 0;
+    int numValues;
+    String[] data;
 
-    public Parser(File file) {
+    public Parser(File file,int numValues) {
+       this.numValues = numValues;
+        data = new String[numValues];
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
@@ -19,10 +19,10 @@ public class Parser {
             e.printStackTrace();
         }
     }
-    public List<String> copyData(){
-        List<String> data = new ArrayList<String>();
+    public String[] copyData() throws IOException {
         while (scanner.hasNext()){
-            data.add(scanner.next());
+            i++;
+            data[i] = scanner.next();
         }
         return data;
     }

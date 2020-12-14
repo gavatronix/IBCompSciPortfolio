@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Writer{
     private FileWriter writer;
+    private int rowLength;
     public Writer(File file){
         try {
             writer = new FileWriter(file.getAbsoluteFile());
@@ -15,12 +16,9 @@ public class Writer{
             System.out.println("Error 404: File not found");
         }
     }
-   public void writeData(List<String> data, int rowLength) throws IOException {
-       for (int i = 0; i < data.size(); i++) {
-           if (i % rowLength == 0 && i != 0) {
-               writer.write("\n");
-           }
-           writer.write(data.get(i) +",");
+   public void writeData(String[] data) throws IOException {
+       for (int i = 0; i < data.length; i++) {
+           writer.write(data[i]);
        }
        writer.close();
    }
