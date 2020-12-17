@@ -25,5 +25,6 @@ public class GreyScaleFilter implements Filter{
                 //pixels[j][i].green = (int).72*pixelGreen;
             }
         }
+        theImage.setData(pixels);
     }
 }

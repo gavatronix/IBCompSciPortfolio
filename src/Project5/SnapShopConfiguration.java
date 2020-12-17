@@ -17,7 +17,8 @@ public class SnapShopConfiguration {
         theShop.setDefaultFilename("src/Project5");
 
         theShop.addFilter(new InvertFilter(), "Invert Colors");
-        theShop.addFilter(new Project5.GreyScaleFilter(),"Convert to Greyscale");
+        theShop.addFilter(new GreyScaleFilter(),"Convert to Greyscale");
+        theShop.addFilter(new DemosaicFilter(),"De-Mosaic");
     }
 
     /** Main method */

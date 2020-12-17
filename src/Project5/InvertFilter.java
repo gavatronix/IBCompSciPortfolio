@@ -17,6 +17,7 @@ public class InvertFilter implements Filter{
                 pixels[j][i].green = invert(pixelGreen);
             }
         }
+        theImage.setData(pixels);
     }
     private int invert(int number){
         return Math.abs(number-255);
