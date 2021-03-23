@@ -114,7 +114,6 @@ public class Game extends JPanel {
                 turn1 = true;
                 name = "X";
             }
-
         }
     }
 }
